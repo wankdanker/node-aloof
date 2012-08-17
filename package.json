@@ -1,0 +1,25 @@
+{
+  "name": "aloof",
+  "version": "0.0.1",
+  "description": "Array of Objects Filtering",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wankdanker/node-aloof.git"
+  },
+  "keywords": [
+    "array",
+    "object",
+    "filter",
+    "query",
+    "select"
+  ],
+  "author": "Dan VerWeire",
+  "license": "MIT"
+}
