@@ -43,12 +43,12 @@ function filter (obj, filters) {
 		obj = [obj];
 	}
 	
-	return obj.filter(createFilterCallback(filters));
+	return createFilterFunction(filters)(obj);
 }
 
-filter.createFilterCallback = createFilterCallback;
+filter.createFilterFunction = createFilterFunction;
 
-function createFilterCallback(filters) {
+function createFilterFunction(filters) {
 	var //index for looping through filters
 		  filterIx
 		//alias for the current filter being processed
@@ -68,7 +68,7 @@ function createFilterCallback(filters) {
 		//
 		, sequence
 		//
-		, executionPlanFunction
+		, filterFunction
 		;
 	
 	//convert the filter to an array
@@ -106,9 +106,20 @@ function createFilterCallback(filters) {
 		executionPlan.push("( " + sequence.join(" && ") + " )");
 	};
 	
-	eval("executionPlanFunction = function (obj) { if ( " + executionPlan.join(" || ") + " ) {return true;} else {return false;} };");
+	var fnString = "filterFunction = function (data) {"
+		+ "	var result = [], obj;"
+		+ "	for (var x = 0; x < data.length; x++) {"
+		+ "		obj = data[x];"
+		+ "		if ( " + executionPlan.join(" || ") + " ) {"
+		+ "			result.push(obj);"
+		+ "		}"
+		+ " }"
+		+ " return result;"
+		+ "};"
 	
-	return executionPlanFunction;
+	eval(fnString);
+	
+	return filterFunction;
 }
 
 function getValue(obj, key) {
@@ -201,7 +212,7 @@ for (methodName in Selector.methods) {
 			var self = this;
 			
 			self.haveFilter = true;
-			self.filterCallbackFunction = null;
+			self.filterFunction = null;
 			self.currentFilter[field] = self.currentFilter[field] || [];
 			
 			self.lastAttribute = {
@@ -229,17 +240,17 @@ Selector.prototype.using = function (data) {
 };
 
 Selector.prototype.executeFilter = function (data) {
-	var self = this;
+	var self = this, result = [];
 	
-	if (!self.filterCallbackFunction) {
-		self.filterCallbackFunction = createFilterCallback(self.filters);
+	if (!self.filterFunction) {
+		self.filterFunction = createFilterFunction(self.filters);
 	}
 	
 	if (!Array.isArray(data)) {
 		data = [data];
 	}
 	
-	return data.filter(self.filterCallbackFunction);
+	return self.filterFunction(data);
 };
 
 Selector.prototype.or = function () {
@@ -247,7 +258,7 @@ Selector.prototype.or = function () {
 		, args = Array.prototype.slice.call(arguments)
 		;
 	
-	self.filterCallbackFunction = null;
+	self.filterFunction = null;
 	self.currentFilter = {};
 	self.filters.push(self.currentFilter);
 	
@@ -264,7 +275,7 @@ Selector.prototype.or = function () {
 Selector.prototype.filter = function (obj) {
 	var self = this;
 	
-	self.filterCallbackFunction = null;
+	self.filterFunction = null;
 	
 	if (!obj) {
 		return self.filters;
