@@ -329,6 +329,24 @@ var tests = {
 		},
 		result : 10
 	},
+	"with() chaining : test max()" : {
+		fn : function (data) {
+			return filter.with(data).max('mosquitoBites');
+		},
+		result : 430
+	},
+	"with() chaining : test min()" : {
+		fn : function (data) {
+			return filter.with(data).min('mosquitoBites');
+		},
+		result : 98
+	},
+	"with() chaining : test avg()" : {
+		fn : function (data) {
+			return filter.with(data).avg('id');
+		},
+		result : 2.5
+	},
 	"with() chaining : test falsy()" : {
 		fn : function (data) {
 			return filter.with(data).falsy('nullableField').select();
