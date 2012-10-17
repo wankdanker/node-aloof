@@ -383,6 +383,41 @@ Selector.prototype.sum = function (column) {
 	}, 0);
 };
 
+Selector.prototype.max = function (column) {
+	var self = this;
+	
+	var ary = this.select();
+	
+	return ary.reduce(function (x, record) {
+		return Math.max(x, record[column]);
+	}, ary[0][column]);
+};
+
+Selector.prototype.min = function (column) {
+	var self = this;
+	
+	var ary = this.select();
+	
+	return ary.reduce(function (x, record) {
+		return Math.min(x, record[column]);
+	}, ary[0][column]);
+};
+
+Selector.prototype.avg = function (column) {
+	var self = this;
+	
+	var ary = this.select();
+	var sum = ary.reduce(function (x, record, ix) {
+		if (ix === 1) {
+			return x[column] + record[column];
+		}
+		
+		return x + record[column];
+	});
+	
+	return sum / ary.length;
+};
+
 function doSort (sort, records) {
 	var keys = Object.keys(sort).reverse();
 	
