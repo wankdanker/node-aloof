@@ -16,10 +16,10 @@ var assert = require('assert'),
 	filter = require('..');
 
 var testData = [
-	{ id : 1, b : 'Something', name : 'Steve',	gender : 'male',	family : 'deer', mosquitoBites : 430, nullableField : null, strNumber : '14', child : { name : 'Dan' }},
-	{ id : 2, b : 'Something', name : 'Dave',	gender : 'male',	family : 'wolf', mosquitoBites : 98, nullableField : "asdf", strNumber : '2', child : { name : 'Derek' }},
-	{ id : 3, b : 'Something', name : 'Mary',	gender : 'female',	family : 'deer', mosquitoBites : 254, nullableField : "asdf", strNumber : '3', child : { name : 'Domino' }},
-	{ id : 4, b : 'Something', name : 'Margaret',	gender : 'female',	family : 'wolf', mosquitoBites : 178, nullableField : "", strNumber : '1', child : { name : 'Darien' }}
+	{ id : 1, b : 'Something', name : 'Steve',	gender : 'male',	family : 'deer', birthdate : '4/1/2000', mosquitoBites : 430, nullableField : null, strNumber : '14', child : { name : 'Dan' }},
+	{ id : 2, b : 'Something', name : 'Dave',	gender : 'male',	family : 'wolf', birthdate : '7/20/2013', mosquitoBites : 98, nullableField : "asdf", strNumber : '2', child : { name : 'Derek' }},
+	{ id : 3, b : 'Something', name : 'Mary',	gender : 'female',	family : 'deer', birthdate : '7/14/2013', mosquitoBites : 254, nullableField : "asdf", strNumber : '3', child : { name : 'Domino' }},
+	{ id : 4, b : 'Something', name : 'Margaret',	gender : 'female',	family : 'wolf', birthdate : '7/1/2013', mosquitoBites : 178, nullableField : "", strNumber : '1', child : { name : 'Darien' }}
 ];
 
 var tests = {
@@ -382,6 +382,12 @@ var tests = {
 			return filter.with(data).equals('child.name', 'Dan').select();
 		},
 		result : [ testData[0] ]
+	},
+	"with() chaining : test dates ": {
+		fn : function (data) {
+			return filter.with(data).greaterThan('birthdate', new Date('7/10/2013')).select();
+		},
+		result : [ testData[1], testData[2] ]
 	}
 };
 

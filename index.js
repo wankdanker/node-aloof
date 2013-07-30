@@ -69,6 +69,8 @@ function createFilterFunction(filters) {
 		, sequence
 		//
 		, filterFunction
+		//
+		, getvaluestr
 		;
 	
 	//convert the filter to an array
@@ -94,9 +96,16 @@ function createFilterFunction(filters) {
 				comp = objCompare[objCompareIx];
 				
 				compstr = compareStringMap[comp.comparison];
-				
+
+				if (comp.value && comp.value.constructor.name === "Date") {
+					getvaluestr = "new Date(getValue(obj, '" + attributeKey + "'))";
+				}
+				else {
+					getvaluestr = "getValue(obj, '" + attributeKey + "')";
+				}
+
 				sequence.push(
-					compstr.replace("{a}","getValue(obj, '" + attributeKey + "')")
+					compstr.replace("{a}", getvaluestr)
 						.replace("{b}","filters[" + filterIx + "]['" + attributeKey + "'][" + objCompareIx + "].value")
 						.replace("{c}","filters[" + filterIx + "]['" + attributeKey + "'][" + objCompareIx + "].value2")
 				);
