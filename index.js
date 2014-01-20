@@ -314,8 +314,6 @@ Selector.prototype.sort = function () {
 		args.pop();
 	}
 	
-	args = args.reverse();
-	
 	args.forEach(function (key, ix) {
 		if (/^-/.test(key)) {
 			self.sortFields[key.replace(/^-/,'')] = { 
@@ -448,6 +446,18 @@ function doSort (sort, records) {
 		records.sort(function (a, b) {
 			var val1 = coerce((dir == 'desc') ? b[key] : a[key]);
 			var val2 = coerce((dir == 'desc') ? a[key] : b[key]);
+			
+			if (val1 == null && val2 != null) {
+				return -1;
+			}
+			
+			if (val1 != null && val2 == null) {
+				return 1;
+			}
+			
+			if (val1 == null && val2 == null) {
+				return 0;
+			}
 			
 			if (val1 < val2) {
 				return -1;

@@ -388,6 +388,12 @@ var tests = {
 			return filter.with(data).greaterThan('birthdate', new Date('7/10/2013')).select();
 		},
 		result : [ testData[1], testData[2] ]
+	},
+	"with() chaingin: test sorting mixed values including nulls" : {
+		fn : function (data) {
+			return filter.with(data).sort('nullableField').select();
+		},
+		result : [ testData[0], testData[3], testData[1], testData[2] ]
 	}
 };
 
