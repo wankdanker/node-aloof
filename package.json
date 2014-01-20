@@ -1,6 +1,6 @@
 {
   "name": "aloof",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Array of Objects Filtering",
   "main": "index.js",
   "directories": {
