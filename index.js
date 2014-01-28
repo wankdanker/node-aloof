@@ -105,9 +105,9 @@ function createFilterFunction(filters) {
 				}
 
 				sequence.push(
-					compstr.replace("{a}", getvaluestr)
-						.replace("{b}","filters[" + filterIx + "]['" + attributeKey + "'][" + objCompareIx + "].value")
-						.replace("{c}","filters[" + filterIx + "]['" + attributeKey + "'][" + objCompareIx + "].value2")
+					compstr.replace(/\{a\}/gi, getvaluestr)
+						.replace(/\{b\}/gi,"filters[" + filterIx + "]['" + attributeKey + "'][" + objCompareIx + "].value")
+						.replace(/\{c\}/gi,"filters[" + filterIx + "]['" + attributeKey + "'][" + objCompareIx + "].value2")
 				);
 			}
 		};
