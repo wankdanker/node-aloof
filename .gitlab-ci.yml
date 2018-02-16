@@ -1,0 +1,21 @@
+stages:
+  - test
+  - publish
+test:
+  stage: test
+  script:
+   - ". $HOME/.nvm/nvm.sh"
+   - "nvm install lts/argon"
+   - "nvm use lts/argon"
+   - "npm install"
+   - "npm test"
+publish:
+ stage: publish
+ script:
+   - ". $HOME/.nvm/nvm.sh"
+   - "nvm install lts/argon"
+   - "nvm use lts/argon"
+   - "npm publish --registry=https://npm.paviliongift.com"
+ environment: production
+ only:
+  - tags
