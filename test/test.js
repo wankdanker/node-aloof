@@ -389,11 +389,17 @@ var tests = {
 		},
 		result : [ testData[1], testData[2] ]
 	},
-	"with() chaingin: test sorting mixed values including nulls" : {
+	"with() chaining: test sorting mixed values including nulls" : {
 		fn : function (data) {
 			return filter.with(data).sort('nullableField').select();
 		},
 		result : [ testData[0], testData[3], testData[1], testData[2] ]
+	},
+	"with(): code injection equals with sort" : {
+		fn : function (data) {
+			return filter.with(data).equals('foo`<%"\'{$*%\\', 'Dan').sort('foo`<%"\'{$*%\\').select();
+		}
+		, result : []
 	}
 };
 

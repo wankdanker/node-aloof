@@ -55,6 +55,8 @@ function createFilterFunction(filters) {
 		, filter
 		//key index for looping through columns with the filter
 		, attributeKey
+		//attributeKey but cleaned of any escape sequences
+		, cleanKey
 		//alias for the current comparison object being used
 		, objCompare
 		//index for looping through comparisons an objCompare
@@ -86,6 +88,7 @@ function createFilterFunction(filters) {
 		
 		for (attributeKey in filter) {
 			objCompare = filter[attributeKey];
+			cleanKey = clean(attributeKey);
 			
 			if (!Array.isArray(objCompare)) {
 				objCompare = [objCompare]
@@ -98,16 +101,16 @@ function createFilterFunction(filters) {
 				compstr = compareStringMap[comp.comparison];
 
 				if (comp.value && comp.value.constructor.name === "Date") {
-					getvaluestr = "new Date(getValue(obj, '" + attributeKey + "'))";
+					getvaluestr = "new Date(getValue(obj, '" + cleanKey + "'))";
 				}
 				else {
-					getvaluestr = "getValue(obj, '" + attributeKey + "')";
+					getvaluestr = "getValue(obj, '" + cleanKey + "')";
 				}
 
 				sequence.push(
 					compstr.replace(/\{a\}/gi, getvaluestr)
-						.replace(/\{b\}/gi,"filters[" + filterIx + "]['" + attributeKey + "'][" + objCompareIx + "].value")
-						.replace(/\{c\}/gi,"filters[" + filterIx + "]['" + attributeKey + "'][" + objCompareIx + "].value2")
+						.replace(/\{b\}/gi,"filters[" + filterIx + "]['" + cleanKey + "'][" + objCompareIx + "].value")
+						.replace(/\{c\}/gi,"filters[" + filterIx + "]['" + cleanKey + "'][" + objCompareIx + "].value2")
 				);
 			}
 		};
@@ -490,3 +493,9 @@ function doGroup (group, records) {
 	return resultGrouping;
 }
 
+function clean(str) {
+	return	str.replace(/\\/gi, '\\\\') //escape the backslash
+		.replace(/'/gi, '\\\'') //escape single quote
+		.replace(/`/gi, '\\\`') //escape back tick
+		.replace(/"/gi, '\\\"') //escape double quote
+}
