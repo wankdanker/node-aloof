@@ -252,6 +252,7 @@ describe('Selector methods', () => {
       }
     }];
     const result = selector.filter(filters);
+    console.log(result)
     expect(result.filters).toEqual(filters);
   });
 
