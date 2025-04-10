@@ -1,6 +1,6 @@
 {
   "name": "aloof",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Array of Objects Filtering",
   "main": "dist/aloof.cjs.js",
   "module": "dist/aloof.es.js",
