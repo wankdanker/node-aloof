@@ -9,8 +9,8 @@ let dataSet = data.data;
 //do one without timing it so that the code gets compiled
 Filter.with(dataSet).equals(getRandomValue(columns), getRandomValue(strings)).select();
 
-let targetColumn = getRandomValue(columns);
-let targetValue = getRandomValue(strings);
+let targetColumn = "aQswGRQRTW" //getRandomValue(columns);
+let targetValue = "eSqGxj1SlO" //getRandomValue(strings);
 
 let start, end, iterations = 10000;
 
@@ -23,7 +23,7 @@ for (let x = 0; x < iterations; x++) {
 }
 end = +new Date();
 
-console.log("bench-filter-cached-function filter \t\t: duration %sms, %d filters/sec, %d ms/filter"
+console.log("aloof:bench-filter-cached-function filter \t\t: duration %sms, %d filters/sec, %d ms/filter"
 	, end - start, Math.round((iterations / (end - start)) * 1000)
 	, Math.round(((end - start) / iterations) * 100) / 100
 );
@@ -39,7 +39,7 @@ for (let y = 0; y < iterations; y++) {
 }
 end = +new Date();
 
-console.log("bench-filter-cached-function filter target \t: duration %sms, %d filters/sec, %d ms/filter"
+console.log("aloof:bench-filter-cached-function filter target \t: duration %sms, %d filters/sec, %d ms/filter"
 	, end - start, Math.round((iterations / (end - start)) * 1000)
 	, Math.round(((end - start) / iterations) * 100) / 100
 );

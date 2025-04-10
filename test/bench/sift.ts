@@ -19,9 +19,8 @@ warmupQuery[getRandomValue(columns)] = getRandomValue(strings);
 dataSet.filter(sift(warmupQuery));
 
 // Set up the test
-let targetColumn = getRandomValue(columns);
-let targetValue = getRandomValue(strings);
-console.log(`sift.js: Testing with column: ${targetColumn}, value: ${targetValue}`);
+let targetColumn = "aQswGRQRTW" //getRandomValue(columns);
+let targetValue = "eSqGxj1SlO" //getRandomValue(strings);
 
 let start, end, iterations = 10000;
 
@@ -29,7 +28,6 @@ let start, end, iterations = 10000;
 start = +new Date();
 const siftQuery = {};
 siftQuery[targetColumn] = targetValue;
-console.log("sift.js: Sift query:", siftQuery);
 
 for (let x = 0; x < iterations; x++) {
   const results = dataSet.filter(sift(siftQuery));

@@ -223,6 +223,45 @@ npm run test:coverage
 npm run typecheck
 ```
 
+## Performance
+
+Aloof has been designed with performance in mind, particularly when compared to similar libraries. Below are some anecdotal benchmark results comparing Aloof's filtering performance against Sift.js and native JavaScript approaches.
+
+### Benchmark Results
+
+These benchmarks were run using simple equality filters on a dataset with 10,000 iterations:
+
+| Method | Average Speed (filters/sec) | Average Time (ms/filter) |
+|--------|---------------------------|------------------------|
+| Aloof with cached filter function | ~8,000 | ~0.15 |
+| Aloof without cached function | ~6,300 | ~0.17 |
+| Sift.js | ~2,100 | ~0.48 |
+| Native Array.filter | ~47,000 | ~0.02 |
+| Direct for loop | ~74,000 | ~0.01 |
+
+### Key Takeaways
+
+1. **Aloof vs Sift.js**: Aloof consistently performs 3-4x faster than Sift.js for equivalent filtering operations.
+
+2. **Code Generation Advantage**: Aloof's approach of dynamically generating specialized filter functions provides better performance than general-purpose libraries like Sift.js while maintaining flexibility.
+
+3. **Native Methods**: As expected, direct for loops and native Array.filter methods still provide the best raw performance, but lack the flexibility and API that Aloof provides.
+
+4. **Cached Function Benefit**: Using Aloof's cached filter functions can provide a modest performance improvement for repeated filtering operations.
+
+### Note on Benchmarks
+
+These benchmarks are anecdotal and represent specific test conditions. Performance will vary based on:
+
+- Size and complexity of the dataset
+- Complexity of filter operations
+- Hardware and JavaScript runtime environment
+- Other concurrent processes
+
+For most applications, the flexibility and expressiveness of Aloof's API will outweigh the raw performance difference between it and native JavaScript methods. However, for extremely performance-critical applications with simple filtering needs, consider using native JavaScript loops or filter methods.
+
+For detailed benchmark methodology or to run the benchmarks yourself, see the `test/bench` directory.
+
 ## License
 
 MIT
