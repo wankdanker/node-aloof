@@ -218,7 +218,7 @@ Selector.methods = {
 };
 
 //define all of the convenience methods
-for (methodName in Selector.methods) {
+for (let methodName in Selector.methods) {
 	(function (methodName, comparison) {
 		Selector.prototype[methodName] = function (field, value, value2) {
 			var self = this;
@@ -345,6 +345,7 @@ Selector.prototype.group = function (field) {
 
 Selector.prototype.count = function () {
 	var self = this;
+	var result;
 	
 	if (self.haveFilter) {
 		result = self.executeFilter(self.data);
