@@ -2,14 +2,31 @@
   "name": "aloof",
   "version": "1.0.0",
   "description": "Array of Objects Filtering",
-  "main": "index.js",
+  "main": "dist/aloof.cjs.js",
+  "module": "dist/aloof.es.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/aloof.es.js",
+      "require": "./dist/aloof.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "build:dev": "vite build --mode development",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -25,7 +42,11 @@
   "author": "Dan VerWeire",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^22.14.0",
     "@vitest/coverage-v8": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^6.2.6",
+    "vite-plugin-dts": "^4.5.3",
     "vitest": "^3.1.1"
   }
 }
