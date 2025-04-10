@@ -1,4 +1,4 @@
-var Filter = require('../index.js')
+var Filter = require('../../')
 	, data =require('./dataSet.json')
 	;
 

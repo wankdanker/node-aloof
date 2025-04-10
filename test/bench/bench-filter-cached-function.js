@@ -1,4 +1,4 @@
-var Filter = require('../index.js')
+var Filter = require('../../')
 	, data =require('./dataSet.json')
 	;
 
@@ -17,7 +17,7 @@ var start, end, iterations = 1000;
 start = +new Date();
 
 var filter = Filter.create().equals(targetColumn, targetValue)
-
+console.log(filter)
 for (var x = 0; x < iterations; x++) {
 	results = filter.using(dataSet).select();
 }
